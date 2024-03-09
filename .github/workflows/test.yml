@@ -41,6 +41,8 @@ jobs:
           cache: npm
       - name: Install Rust
         uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
       - name: Install Dependencies
         shell: bash
         run: npm ci --verbose
