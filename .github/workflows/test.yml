@@ -1,0 +1,52 @@
+name: Test
+
+run-name: |
+  ${{ (github.event_name == 'pull_request' && format('Test (PR #{0}): {1}', github.event.number, github.event.pull_request.title))
+   || format('Test: {0}', github.event.head_commit.message) }}
+
+on:
+  # Event: A maintainer has pushed commits or merged a PR to main.
+  push:
+    # Limiting push events to 'main' prevents duplicate runs of this workflow
+    # when maintainers push to internal PRs.
+    branches:
+      - main
+
+  # Event: A contributor has created or updated a PR.
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set Environment Variables
+        uses: falti/dotenv-action@v1
+        with:
+          path: ./.github/workflows/.env
+          export-variables: true
+          keys-case: bypass
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.NPM_REGISTRY }}
+          cache: npm
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+      - name: Install Dependencies
+        shell: bash
+        run: npm ci --verbose
+      - name: Build
+        shell: bash
+        run: npm run debug
+      - name: Test
+        shell: bash
+        run: npm test
