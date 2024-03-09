@@ -12,7 +12,7 @@ To run the build, run:
 $ npm run build
 ```
 
-This command uses the [@neon-rs/cli](https://github.com/neon-rs/cli) utility to assemble the binary Node addon from the output of `cargo`.
+This command uses the [@neon-rs/cli](https://www.npmjs.com/package/@neon-rs/cli) utility to assemble the binary Node addon from the output of `cargo`.
 
 ## Exploring create-neon-manual-test-project
 
