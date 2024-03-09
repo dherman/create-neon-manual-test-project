@@ -86,8 +86,8 @@ create-neon-manual-test-project/
 
 ## Learn More
 
-To learn more about Neon, see the [Neon documentation](https://neon-bindings.com).
+Learn more about:
 
-To learn more about Rust, see the [Rust documentation](https://www.rust-lang.org).
-
-To learn more about Node, see the [Node documentation](https://nodejs.org).
+- [Neon](https://neon-bindings.com)
+- [Rust](https://www.rust-lang.org)
+- [Node](https://nodejs.org)
