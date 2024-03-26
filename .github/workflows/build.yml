@@ -39,18 +39,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
-      - name: Set Environment Variables
-        uses: falti/dotenv-action@v1
+      - name: Setup Neon Environment
+        uses: ./.github/actions/setup
         with:
-          path: ./.github/workflows/.env
-          export-variables: true
-          keys-case: bypass
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          registry-url: ${{ env.NPM_REGISTRY }}
-          cache: npm
+          use-rust: false
       - name: Install Dependencies
         shell: bash
         run: npm ci
@@ -90,18 +82,13 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
-      - name: Set Environment Variables
-        uses: falti/dotenv-action@v1
+      - name: Setup Neon Environment
+        id: neon
+        uses: ./.github/actions/setup
         with:
-          path: ./.github/workflows/.env
-          export-variables: true
-          keys-case: bypass
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          registry-url: ${{ env.NPM_REGISTRY }}
-          cache: npm
+          use-cross: ${{ matrix.cfg.script == 'cross' }}
+          platform: ${{ matrix.cfg.platform }}
+          workspace: ./pkgs/cargo-messages
       - name: Install Dependencies
         shell: bash
         run: npm ci
@@ -113,11 +100,17 @@ jobs:
           git config --global user.email $ACTIONS_EMAIL
           npm version ${{ inputs.version }} -m "v%s"
       - name: Build
-        uses: neon-actions/build@v0.9
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          use-cross: ${{ !!matrix.cfg.cross }}
-          platform: ${{ matrix.cfg.platform }}
+        shell: bash
+        env:
+          CARGO_BUILD_TARGET: ${{ steps.neon.outputs.target }}
+          NEON_BUILD_PLATFORM: ${{ matrix.cfg.platform }}
+        run: npm run $
+      - name: Pack
+        id: pack
+        shell: bash
+        run: |
+          mkdir -p dist
+          echo filename=$(basename $(npm pack ./platforms/${{ matrix.cfg.platform }} --pack-destination=./dist --json | jq -r '.[0].filename')) >> $GITHUB_OUTPUT
       - name: Release
         if: ${{ inputs.github-release }}
         uses: softprops/action-gh-release@v1
@@ -135,18 +128,10 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
-      - name: Set Environment Variables
-        uses: falti/dotenv-action@v1
+      - name: Setup Neon Environment
+        uses: ./.github/actions/setup
         with:
-          path: ./.github/workflows/.env
-          export-variables: true
-          keys-case: bypass
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          registry-url: ${{ env.NPM_REGISTRY }}
-          cache: npm
+          use-rust: false
       - name: Install Dependencies
         shell: bash
         run: npm ci
