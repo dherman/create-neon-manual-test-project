@@ -43,9 +43,6 @@ jobs:
         uses: ./.github/actions/setup
         with:
           use-rust: false
-      - name: Install Dependencies
-        shell: bash
-        run: npm ci
       - name: Look Up Matrix Data
         id: matrixData
         shell: bash
@@ -89,9 +86,6 @@ jobs:
           use-cross: ${{ matrix.cfg.script == 'cross' }}
           platform: ${{ matrix.cfg.platform }}
           workspace: ./pkgs/cargo-messages
-      - name: Install Dependencies
-        shell: bash
-        run: npm ci
       - name: Update Version
         if: ${{ inputs.update-version }}
         shell: bash
@@ -132,9 +126,6 @@ jobs:
         uses: ./.github/actions/setup
         with:
           use-rust: false
-      - name: Install Dependencies
-        shell: bash
-        run: npm ci
       - name: Pack
         id: pack
         shell: bash

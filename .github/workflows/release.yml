@@ -78,9 +78,6 @@ jobs:
         uses: ./.github/actions/setup
         with:
           use-rust: false
-      - name: Install Dependencies
-        shell: bash
-        run: npm ci
       - name: Tag Release (manual only)
         if: ${{ !inputs.dryrun }}
         shell: bash
@@ -121,9 +118,6 @@ jobs:
         uses: ./.github/actions/setup
         with:
           use-rust: false
-      - name: Install Dependencies
-        shell: bash
-        run: npm ci
       - name: Fetch
         uses: robinraju/release-downloader@v1.7
         with:
