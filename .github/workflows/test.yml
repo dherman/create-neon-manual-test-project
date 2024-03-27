@@ -32,9 +32,6 @@ jobs:
         uses: ./.github/actions/setup
         with:
           platform: linux-x64-gnu
-      - name: Install Dependencies
-        shell: bash
-        run: npm ci --verbose
       - name: Build
         shell: bash
         env:
