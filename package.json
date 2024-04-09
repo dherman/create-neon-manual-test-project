@@ -41,7 +41,7 @@
     "platforms": [
       "common"
     ],
-    "load": "./ts/load.cts"
+    "load": "./src/load.cts"
   },
   "devDependencies": {
     "@neon-rs/cli": "^0.1.64",
