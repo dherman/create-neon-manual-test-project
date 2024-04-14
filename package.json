@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@neon-rs/cli": "^0.1.64",
-    "@tsconfig/node18": "^18.2.2",
+    "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.11.16",
     "typescript": "^5.3.3"
   },
