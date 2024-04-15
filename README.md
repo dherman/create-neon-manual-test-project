@@ -19,10 +19,11 @@ This command uses the [@neon-rs/cli](https://www.npmjs.com/package/@neon-rs/cli)
 After building create-neon-manual-test-project, you can explore its exports at the Node console:
 
 ```sh
+$ npm i
 $ npm run build
 $ node
-> require('.').hello()
-"hello node"
+> require('.').greeting()
+{ message: 'hello node' }
 ```
 
 ## Available Scripts
