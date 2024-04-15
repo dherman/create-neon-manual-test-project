@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/create-neon-manual-test-project"]
+resolver = "2"
