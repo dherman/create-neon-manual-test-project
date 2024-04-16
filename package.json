@@ -1,6 +1,6 @@
 {
   "name": "create-neon-manual-test-project",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "",
   "main": "./lib/index.cjs",
   "scripts": {
