@@ -120,7 +120,7 @@ jobs:
         with:
           use-rust: false
       - name: Fetch
-        uses: robinraju/release-downloader@v1.7
+        uses: robinraju/release-downloader@c39a3b234af58f0cf85888573d361fb6fa281534
         with:
           tag: ${{ needs.setup.outputs.tag }}
           fileName: "*.tgz"
