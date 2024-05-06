@@ -31,7 +31,7 @@ runs:
   using: "composite"
   steps:
     - name: Set Environment Variables
-      uses: falti/dotenv-action@v1
+      uses: falti/dotenv-action@d1cd55661714e830a6e26f608f81d36e23424fed # v1.1.2
       with:
         path: ./.github/.env
         export-variables: true
